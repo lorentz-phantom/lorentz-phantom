@@ -1,8 +1,4 @@
-from . import shapes
-try:
-    from . import astrafp
-except ImportError:
-    pass
+from . import shapes, forwproj
 import numpy as np
 
 def imagelist(oplist, tsteps, shape):
@@ -40,7 +36,7 @@ def imagelist(oplist, tsteps, shape):
 def fp(oplist, tsteps, angs, shape, fpfunc=None):
     imgs = imagelist(oplist, tsteps, shape)
     if fpfunc==None:
-        fpfunc = astrafp.fp
+        fpfunc = forwproj.tomopyfp
     p = np.zeros((len(angs),shape[0]))
     for i,ang in enumerate(angs):
         p[i] = fpfunc(imgs[i],ang)
