@@ -1,1 +1,1 @@
-import shapes
+from . import shapes, generate
