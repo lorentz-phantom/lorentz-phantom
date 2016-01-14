@@ -1,4 +1,8 @@
 from . import shapes
+try:
+    from . import astrafp
+except ImportError:
+    pass
 import numpy as np
 
 def imagelist(oplist, tsteps, shape):
@@ -35,3 +39,13 @@ def imagelist(oplist, tsteps, shape):
                     shp[key] = par_list[j][key][i]
             shapes.addshape(imgs[i],**shp)
     return imgs
+
+def fp(oplist, tsteps, angs, shape, fpfunc=None):
+    imgs = imagelist(oplist, tsteps, shape)
+    if fpfunc==None:
+        fpfunc = astrafp.fp
+    p = np.zeros((len(angs),shape[0]))
+    for i,ang in enumerate(angs):
+        p[i] = fpfunc(imgs[i],ang)
+    return p
+
