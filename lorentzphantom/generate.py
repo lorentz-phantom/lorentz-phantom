@@ -9,7 +9,6 @@ def imagelist(oplist, tsteps, shape):
     nt = len(tsteps)
     tsteps = np.array(tsteps)
 
-    print tsteps
     par_list = []
     shape_list = []
 
@@ -27,10 +26,8 @@ def imagelist(oplist, tsteps, shape):
             cl = par_list[op['id']][op['var']]
             l = np.argmax(tsteps>=op['t_start'])
             r = np.argmax(tsteps>=op['t_end'])
-            print l,r
             cl[l:r] = np.interp(tsteps[l:r], [op['t_start'],op['t_end']], [cl[l-1],op['new_val']])
             cl[r-1:] = op['new_val']
-    print shape_list
     imgs = np.zeros((nt,shape[0],shape[1]))
     for i in range(nt):
         for j,shp in enumerate(shape_list):
@@ -47,5 +44,5 @@ def fp(oplist, tsteps, angs, shape, fpfunc=None):
     p = np.zeros((len(angs),shape[0]))
     for i,ang in enumerate(angs):
         p[i] = fpfunc(imgs[i],ang)
-    return p
+    return p, imgs
 
