@@ -322,7 +322,7 @@ class Mock(object):
         return Mock()
             
 
-MOCK_MODULES = ['h5py']
+MOCK_MODULES = ['astra', 'tomopy']
 
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock()
